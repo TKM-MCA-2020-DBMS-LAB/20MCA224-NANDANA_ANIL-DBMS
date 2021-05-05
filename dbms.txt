@@ -1,0 +1,5 @@
+create database organization; 
+use organization;
+create table employee(emp_no int primary key,emp_name char[20] not null,DOB date,address varchar[30],doj date,mobile_no int not null,dept_no,salary);
+
+create table department(dept_no int primary key,dept_name char[20] not null,location char[20]);
