@@ -1,0 +1,50 @@
+show databases;
+use organization;
+desc employee;
+(i) Add 5 rows in the employee and dept tables
+INSERT INTO employee VALUES(5,"John",'1970-08-12',"Venjarummood",'2021-02-14',5,20000,"Support Assistant",9876543218);
+INSERT INTO employee VALUES(7,"Anil",'1972-08-15',"kollam",'2020-07-14',4,20000,"Assistant",9876543212);
+INSERT INTO employee VALUES(8,"Binu",'1976-09-19',"kollam",'2020-08-17',4,40000,"Assistant manager",9877665544);
+INSERT INTO employee VALUES(10,"Jayan",'1970-08-12',"ernakulam",'2021-02-14',5,10000,"Cashier",9876543218);
+INSERT INTO employee VALUES(12,"Sajan",'1976-09-19',"kottayam",'2020-08-17',5,50000,"Manager",9988776644);
+INSERT INTO department VALUES(5,"Sales","Venjarummood”);
+INSERT INTO department VALUES(4,"Marketting","kollam");
+INSERT INTO department VALUES(3,"Maintenance","kollam");
+INSERT INTO department VALUES(2,"Sales","kottayam");
+INSERT INTO department VALUES(1,"Production","kollam");
+
+(ii)Display all the records from the above tables
+select * from employee;
+select * from department;
+
+iii) Display the empno and name of all the employees from department no 5?
+select emp_no,emp_name from employees where dept_no=5;
+
+(iv) Display empno,name,designation,dept no and salary in the descending order of salary
+select * from employee order by salary desc;
+
+(v) Display the empno and name of all employees whose salary is between 2000 and 5000
+select emp_no,emp_name from employee where salary between 20000 and 50000;
+
+(vi) Display all designations without duplicate values.
+select designation from employee group by designation having count(*)=1;
+SELECT DISTINCT Designation FROM Employee;
+
+(vii) Display the department name and total salary of employees of each department.
+SELECT department.dept_no, result1.total_amt FROM department,  (SELECT employee.dept_no, SUM(employee.salary) 
+total_amt  FROM employee  GROUP BY dept_no) result1 WHERE result1.dept_no = department.dept_no;
+
+ (viii) Change the salary of employees to 25000 whose designation is ‘Typist’
+update employee set salary=25000 where designation="Typist"; 
+
+(ix)	Change the mobile no of employee named
+update employee set mobile_no="7856193670" WHERE emp_name ="John";
+
+x)	Delete all employees whose salaries are equal to Rs.15000?
+delete from employee where salary=15000;
+
+(xi) Select the department that has total salary paid for its employees more than 25000
+select dept_name from employee where salary>25000;
+
+
+
