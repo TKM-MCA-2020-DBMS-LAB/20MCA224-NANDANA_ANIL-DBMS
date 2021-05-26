@@ -1,0 +1,121 @@
+EXPERIMENT NO:2
+DATA DEFINITION LANGUAGE (DDL) COMMANDS
+
+(i)	create the database
+
+	mysql> create database Organization;
+	Query OK, 1 row affected (0.14 sec)
+
+
+(ii)	select the current database
+
+	mysql> use Organization;
+	Database changed 
+(iii)   Create the following tables  ,   (iv)	Include necessary constraints.
+	a.	employee (emp_no,emp_name,DOB, address, doj, mobile_no, dept_no, salary).
+
+	
+	mysql>  create table employee(emp_no int primary key,emp_name char(30) not null,DOB date, address char(30), doj date, mobile_no varchar(30) not null, dept_no int, salary int);
+	Query OK, 0 rows affected (0.68 sec)
+
+	b.	department (dept_no, dept_name, location).
+
+	mysql> create table department(dept_no int not null, dept_name char(30), location char(30));
+	Query OK, 0 rows affected (0.27 sec)
+
+
+(v)	List all the tables in the current database
+
+	
+	mysql> show tables;
+	+------------------------+
+	| Tables_in_organization |
+	+------------------------+
+	| department             |
+	| employee               |
+	+------------------------+
+	2 rows in set (0.30 sec)
+
+(vi)	Display the structure of the employee table
+
+	
+	mysql> describe employee;
+	+-----------+-------------+------+-----+---------+-------+
+	| Field     | Type        | Null | Key | Default | Extra |
+	+-----------+-------------+------+-----+---------+-------+
+	| emp_no    | int         | NO   | PRI | NULL    |       |
+	| emp_name  | char(30)    | NO   |     | NULL    |       |
+	| DOB       | date        | YES  |     | NULL    |       |
+	| address   | char(30)    | YES  |     | NULL    |       |
+	| doj       | date        | YES  |     | NULL    |       |
+	| mobile_no | varchar(30) | NO   |     | NULL    |       |
+	| dept_no   | int         | YES  |     | NULL    |       |
+	| salary    | int         | YES  |     | NULL    |       |
+	+-----------+-------------+------+-----+---------+-------+
+	8 rows in set (0.22 sec)
+
+(vii)	Add a new column Designation to the employee table
+	
+	mysql> alter table employee add designation varchar(20);
+	Query OK, 0 rows affected (0.61 sec)
+	Records: 0  Duplicates: 0  Warnings: 0
+
+	mysql> describe employee;
+	+-------------+-------------+------+-----+---------+-------+
+	| Field       | Type        | Null | Key | Default | Extra |
+	+-------------+-------------+------+-----+---------+-------+
+	| emp_no      | int         | NO   | PRI | NULL    |       |
+	| emp_name    | char(30)    | NO   |     | NULL    |       |
+	| DOB         | date        | YES  |     | NULL    |       |
+	| address     | char(30)    | YES  |     | NULL    |       |
+	| doj         | date        | YES  |     | NULL    |       |
+	| mobile_no   | varchar(30) | NO   |     | NULL    |       |
+	| dept_no     | int         | YES  |     | NULL    |       |
+	| salary      | int         | YES  |     | NULL    |       |
+	| designation | varchar(20) | YES  |     | NULL    |       |
+	+-------------+-------------+------+-----+---------+-------+
+	9 rows in set (0.00 sec)
+
+
+(viii)	Drop the column location from Dept table
+
+	mysql> alter table department drop location;
+	Query OK, 0 rows affected (0.71 sec)
+	Records: 0  Duplicates: 0  Warnings: 0
+
+	mysql> describe department;
+	+-----------+----------+------+-----+---------+-------+
+	| Field     | Type     | Null | Key | Default | Extra |
+	+-----------+----------+------+-----+---------+-------+
+	| dept_no   | int      | NO   |     | NULL    |       |
+	| dept_name | char(30) | YES  |     | NULL    |       |
+	+-----------+----------+------+-----+---------+-------+
+	2 rows in set (0.14 sec)
+
+(ix)	Drop the tables
+	
+	
+	mysql> drop table employee;
+	Query OK, 0 rows affected (0.38 sec)
+
+	mysql> drop table department;
+	Query OK, 0 rows affected (0.25 sec)
+
+
+(x)	Delete the database
+
+	mysql> drop database organization;
+	Query OK, 0 rows affected (0.11 sec)
+	mysql> show databases;
+	+--------------------+
+	| Database           |
+	+--------------------+
+	| ganga              |
+	| information_schema |
+	| mysql              |
+	| performance_schema |
+	| sakila             |
+	| sys                |
+	| world              |
+	+--------------------+	
+	7 rows in set (0.00 sec)
