@@ -1,0 +1,189 @@
+DATA MANIPULATION LANGUAGE(DML)
+
+(1)Add 5 rows in the employee and dept tables
+
+mysql> delete from employee;
+Query OK, 5 rows affected (0.12 sec)
+
+mysql> insert into employee values(1,'Rahul','1990-05-29','RahulVilla','2019-02-20','9876543219',1,10000,'clerk');
+Query OK, 1 row affected (0.07 sec)
+
+mysql>  INSERT INTO employee VALUES(2,"Rajeev Menon",'1970-03-20',"Rajeev Bhavan",'2017-02-03',9567655678,2,25000,"Junior Assistant");
+Query OK, 1 row affected (0.06 sec)
+
+mysql>  INSERT INTO employee VALUES(3,"RaviKumar",'1970-03-20',"RaviVilla",'2014-05-17',9898786756,3,20000,"clerk");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO employee VALUES(4,"SandhyaNair",'1990-07-30',"SandhyaBhavan",'2019-02-15',9512345618,4,30000,"Typist");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO employee VALUES(5,"KiranKumar",'1995-07-30',"KiranVilla",'2018-03-15',9533567818,5,30000,"Typist");
+Query OK, 1 row affected (0.06 sec)
+
+
+mysql> INSERT INTO department VALUES(1,"Markrting","kollam");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO department VALUES(2,"Sales","Trivandrum");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO department VALUES(3,"sales","kollam");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO department VALUES(4,"Production","kochi");
+Query OK, 1 row affected (0.07 sec)
+
+mysql>  INSERT INTO department VALUES(5,"Maintenance","kochi");
+Query OK, 1 row affected (0.07 sec)
+
+(2)Display all the records from the above tables
+
+
+mysql> select * from employee;
++--------+--------------+------------+---------------+------------+------------+---------+--------+------------------+
+| emp_no | emp_name     | DOB        | address       | doj        | mobile_no  | dept_no | salary | designation      |
++--------+--------------+------------+---------------+------------+------------+---------+--------+------------------+
+|      1 | Rahul        | 1990-05-29 | RahulVilla    | 2019-02-20 | 9876543219 |       1 |  10000 | clerk            |
+|      2 | Rajeev Menon | 1970-03-20 | Rajeev Bhavan | 2017-02-03 | 9567655678 |       2 |  25000 | Junior Assistant |
+|      3 | RaviKumar    | 1970-03-20 | RaviVilla     | 2014-05-17 | 9898786756 |       3 |  20000 | clerk            |
+|      4 | SandhyaNair  | 1990-07-30 | SandhyaBhavan | 2019-02-15 | 9512345618 |       4 |  30000 | Typist           |
+|      5 | KiranKumar   | 1995-07-30 | KiranVilla    | 2018-03-15 | 9533567818 |       5 |  30000 | Typist           |
++--------+--------------+------------+---------------+------------+------------+---------+--------+------------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from department;
++---------+-------------+------------+
+| dept_no | dept_name   | location   |
++---------+-------------+------------+
+|       1 | Markrting   | kollam     |
+|       2 | Sales       | Trivandrum |
+|       3 | sales       | kollam     |
+|       4 | Production  | kochi      |
+|       5 | Maintenance | kochi      |
++---------+-------------+------------+
+5 rows in set (0.00 sec)
+
+(3)Display the empno and name of all the employees from department no2
+
+mysql> select emp_no,emp_name from employee where dept_no=2;
++--------+--------------+
+| emp_no | emp_name     |
++--------+--------------+
+|      2 | Rajeev Menon |
++--------+--------------+
+1 row in set (0.00 sec)
+
+(4)Display empno,name,designation,dept no and salary in the descending order of salary
+
+mysql> select emp_no,emp_name,salary,dept_no,designation from employee order by salary desc;
++--------+--------------+--------+---------+------------------+
+| emp_no | emp_name     | salary | dept_no | designation      |
++--------+--------------+--------+---------+------------------+
+|      4 | SandhyaNair  |  30000 |       4 | Typist           |
+|      5 | KiranKumar   |  30000 |       5 | Typist           |
+|      2 | Rajeev Menon |  25000 |       2 | Junior Assistant |
+|      3 | RaviKumar    |  20000 |       3 | clerk            |
+|      1 | Rahul        |  10000 |       1 | clerk            |
++--------+--------------+--------+---------+------------------+
+5 rows in set (0.00 sec)
+
+(5)Display the empno and name of all employees whose salary is between 20000 and 50000
+
+
+mysql> select emp_no,emp_name from employee where salary between 20000 and 50000;
++--------+--------------+
+| emp_no | emp_name     |
++--------+--------------+
+|      2 | Rajeev Menon |
+|      3 | RaviKumar    |
+|      4 | SandhyaNair  |
+|      5 | KiranKumar   |
++--------+--------------+
+4 rows in set (0.05 sec)
+
+(6)Display all designations without duplicate values
+
+
+mysql> select distinct designation from employee;
++------------------+
+| designation      |
++------------------+
+| clerk            |
+| Junior Assistant |
+| Typist           |
++------------------+
+3 rows in set (0.05 sec)
+
+(7)Display the dept name and total salary of employees of each department.
+
+
+mysql> select department.dept_name,sum(employee.salary) from employee inner join department on  employee.dept_no=department.dept_no group by employee.dept_no;
++-------------+----------------------+
+| dept_name   | sum(employee.salary) |
++-------------+----------------------+
+| Markrting   |                10000 |
+| Sales       |                25000 |
+| sales       |                20000 |
+| Production  |                30000 |
+| Maintenance |                30000 |
++-------------+----------------------+
+5 rows in set (0.14 sec)
+
+(8)Change the salary of employees to 25000 whose designation is ‘Typist’
+
+
+mysql> update employee set salary=25000 where designation='typist';
+Query OK, 2 rows affected (0.07 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from employee;
++--------+--------------+------------+---------------+------------+------------+---------+--------+------------------+
+| emp_no | emp_name     | DOB        | address       | doj        | mobile_no  | dept_no | salary | designation      |
++--------+--------------+------------+---------------+------------+------------+---------+--------+------------------+
+|      1 | Rahul        | 1990-05-29 | RahulVilla    | 2019-02-20 | 9876543219 |       1 |  10000 | clerk            |
+|      2 | Rajeev Menon | 1970-03-20 | Rajeev Bhavan | 2017-02-03 | 9567655678 |       2 |  25000 | Junior Assistant |
+|      3 | RaviKumar    | 1970-03-20 | RaviVilla     | 2014-05-17 | 9898786756 |       3 |  20000 | clerk            |
+|      4 | SandhyaNair  | 1990-07-30 | SandhyaBhavan | 2019-02-15 | 9512345618 |       4 |  25000 | Typist           |
+|      5 | KiranKumar   | 1995-07-30 | KiranVilla    | 2018-03-15 | 9533567818 |       5 |  25000 | Typist           |
++--------+--------------+------------+---------------+------------+------------+---------+--------+------------------+
+5 rows in set (0.03 sec)
+
+(9)Change the mobile no of employee named ‘Rahul’
+
+
+mysql> update employee set mobile_no='7788996655' where emp_name='Rahul';
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+ select * from employee where emp_name="Rahul";
++--------+----------+------------+------------+------------+------------+---------+--------+-------------+
+| emp_no | emp_name | DOB        | address    | doj        | mobile_no  | dept_no | salary | designation |
++--------+----------+------------+------------+------------+------------+---------+--------+-------------+
+|      1 | Rahul    | 1990-05-29 | RahulVilla | 2019-02-20 | 7788996655 |       1 |  10000 | clerk       |
++--------+----------+------------+------------+------------+------------+---------+--------+-------------+
+1 row in set (0.00 sec)
+
+(10)Delete all employees whose salaries are equal to Rs.25000
+
+
+mysql> delete from employee where salary=25000;
+Query OK, 3 rows affected (0.08 sec)
+
+mysql> select * from employee;
++--------+-----------+------------+------------+------------+------------+---------+--------+-------------+
+| emp_no | emp_name  | DOB        | address    | doj        | mobile_no  | dept_no | salary | designation |
++--------+-----------+------------+------------+------------+------------+---------+--------+-------------+
+|      1 | Rahul     | 1990-05-29 | RahulVilla | 2019-02-20 | 7788996655 |       1 |  10000 | clerk       |
+|      3 | RaviKumar | 1970-03-20 | RaviVilla  | 2014-05-17 | 9898786756 |       3 |  20000 | clerk       |
++--------+-----------+------------+------------+------------+------------+---------+--------+-------------+
+2 rows in set (0.01 sec)
+
+(11)Select the department that has total salary paid for its employees more than 25000
+
+mysql> select department.dept_name,sum(employee.salary) from employee inner join department on department.dept_no=employee.dept_no group by department.dept_name having sum(employee.salary)>25000;
++-----------+----------------------+
+| dept_name | sum(employee.salary) |
++-----------+----------------------+
+| Sales     |                45000 |
++-----------+----------------------+
+1 row in set (0.08 sec)
